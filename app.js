@@ -12,7 +12,8 @@
   const escapeHTML = value => String(value ?? "").replace(/[&<>"']/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
   let products;
   try { products = JSON.parse(localStorage.getItem("reverbProducts")) || seed; } catch (_) { products = seed; }
-  let cart = [];
+  let cart = []; try { cart = JSON.parse(localStorage.getItem("reverbBag")) || []; } catch (_) { cart = []; }
+  const persistCart = () => { localStorage.setItem("reverbBag", JSON.stringify(cart)); $("#cartCount").textContent = cart.length; };
   let activeProduct = null;
   let selectedColour = 0;
   let selectedSize = "";
@@ -106,8 +107,8 @@
     const addCart = $("#addCart");
     if (addCart) addCart.addEventListener("click", () => {
       if (!selectedSize) { alert("Please select a size."); return; }
-      cart.push({product:p, colour:colour.name, size:selectedSize});
-      $("#cartCount").textContent = cart.length;
+      cart.push({product:{id:p.id,name:p.name,price:p.price}, colour:colour.name, size:selectedSize});
+      persistCart();
       close();
     });
   }
@@ -130,9 +131,10 @@
   function bag() {
     if (!cart.length) { show('<h2>Your bag is empty.</h2><p>Find something you love in the collection.</p>'); return; }
     show('<h2>Your bag</h2>' + cart.map((item,i) => '<div class="admin-row">' + escapeHTML(item.product.name) + ' · ' + escapeHTML(item.colour) + ' · ' + item.size + ' <b>' + money(item.product.price) + '</b> <button type="button" data-remove="' + i + '">Remove</button></div>').join("") + '<h3>Total ' + money(cart.reduce((sum,item) => sum + item.product.price,0)) + '</h3><button class="action" id="checkout" type="button">CHECKOUT</button>');
-    $$("[data-remove]", modalContent).forEach(button => button.addEventListener("click", () => { cart.splice(Number(button.dataset.remove),1); $("#cartCount").textContent = cart.length; bag(); }));
+    $$("[data-remove]", modalContent).forEach(button => button.addEventListener("click", () => { cart.splice(Number(button.dataset.remove),1); persistCart(); bag(); }));
     $("#checkout").addEventListener("click", () => alert("Checkout/payment integration will be added later."));
   }
+  $("#cartCount").textContent = cart.length;
   $("#closeModal").addEventListener("click", close);
   modal.addEventListener("click", e => { if (e.target === modal) close(); });
   $("#accountBtn").addEventListener("click", account);
