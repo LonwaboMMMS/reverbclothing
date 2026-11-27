@@ -46,7 +46,7 @@
       return '<article class="product-card" data-id="' + p.id + '"><div class="product-image">' + (p.images?.[0] || p.image ? '<img src="' + escapeHTML((p.images||[p.image])[0]) + '" alt="' + escapeHTML(p.name) + '">' : '<div class="product-art ' + kind + '" style="--product-color:' + escapeHTML(p.colors[0]?.hex || "#222") + '"><span class="product-mark">R</span></div>') + '<span class="product-badge">REVERB / 01</span><button class="quick" type="button">QUICK VIEW ↗</button></div><div class="product-info"><div><h3>' + escapeHTML(p.name) + '</h3><p>' + escapeHTML(p.type) + '</p></div><span class="price">' + money(p.price) + '</span></div><div class="swatches">' + p.colors.map(c => '<span class="swatch" title="' + escapeHTML(c.name) + '" style="background:' + escapeHTML(c.hex) + '"></span>').join("") + '</div></article>';
     }).join("");
     empty.hidden = list.length > 0;
-    $(".product-card", grid).forEach(card => { card.addEventListener("click", e => { if (e.target.closest(".quick")) return; location.href = "product.html?id=" + encodeURIComponent(card.dataset.id); }); card.querySelector(".quick")?.addEventListener("click", e => { e.preventDefault(); e.stopPropagation(); openProduct(Number(card.dataset.id)); }); });
+    $$(".product-card", grid).forEach(card => { card.addEventListener("click", e => { if (e.target.closest(".quick")) return; location.href = "product.html?id=" + encodeURIComponent(card.dataset.id); }); card.querySelector(".quick")?.addEventListener("click", e => { e.preventDefault(); e.stopPropagation(); openProduct(Number(card.dataset.id)); }); });
   }
   function show(html) {
     modalContent.innerHTML = html;
