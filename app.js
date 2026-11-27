@@ -130,7 +130,7 @@
   }
   function bag() {
     if (!cart.length) { show('<h2>Your bag is empty.</h2><p>Find something you love in the collection.</p>'); return; }
-    show('<h2>Your bag</h2>' + cart.map((item,i) => '<div class="admin-row">' + escapeHTML(item.product.name) + ' · ' + escapeHTML(item.colour) + ' · ' + item.size + ' <b>' + money(item.product.price) + '</b> <button type="button" data-remove="' + i + '">Remove</button></div>').join("") + '<h3>Total ' + money(cart.reduce((sum,item) => sum + item.product.price,0)) + '</h3><button class="action" id="checkout" type="button">CHECKOUT</button>');
+    show('<h2>Your bag</h2>' + cart.map((item,i) => '<div class="admin-row">' + escapeHTML(item.product.name) + ' · ' + escapeHTML(item.colour) + ' · ' + item.size + ' <b>' + money(item.product.price) + '</b> <button type="button" class="bag-remove" data-remove="' + i + '">Remove</button></div>').join("") + '<h3>Total ' + money(cart.reduce((sum,item) => sum + item.product.price,0)) + '</h3><button class="action" id="checkout" type="button">CHECKOUT</button>');
     $$("[data-remove]", modalContent).forEach(button => button.addEventListener("click", () => { cart.splice(Number(button.dataset.remove),1); persistCart(); bag(); }));
     $("#checkout").addEventListener("click", () => alert("Checkout/payment integration will be added later."));
   }
