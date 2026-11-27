@@ -1,39 +1,56 @@
 <!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#f4f3ef">
-  <title>The Workshop — REVERB</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
-  <style>
-    *{box-sizing:border-box}body{margin:0;min-height:100vh;background:#f4f3ef;color:#171717;font-family:'DM Sans',sans-serif;display:flex;flex-direction:column}
-    header{height:74px;padding:0 5vw;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #deddd8}
-    .brand{font:700 25px 'Space Grotesk';letter-spacing:-1.5px;color:inherit;text-decoration:none}.brand span{color:#9cbd1e}
-    .back{color:#171717;text-decoration:none;font-size:13px;font-weight:700}
-    main{width:min(760px,90%);margin:auto;padding:70px 0 90px}
-    .eyebrow{font-size:11px;letter-spacing:2px;font-weight:700;color:#777}
-    h1{font:600 clamp(48px,8vw,82px)/.98 'Space Grotesk';letter-spacing:-4px;margin:20px 0}
-    h1 span{color:#85857c}.intro{font-size:16px;line-height:1.7;color:#666;max-width:520px}
-    .panel{margin-top:48px;padding:28px;background:#ebeae4;border:1px solid #deddd8;display:flex;gap:18px;align-items:flex-start}
-    .mark{width:42px;height:42px;flex:0 0 42px;background:#171717;color:#d5ff45;display:grid;place-items:center;font:700 21px 'Space Grotesk'}
-    .panel h2{font:600 19px 'Space Grotesk';margin:2px 0 8px}.panel p{font-size:13px;line-height:1.65;color:#666;margin:0}
-    footer{padding:24px 5vw;border-top:1px solid #deddd8;font-size:11px;letter-spacing:1px;color:#777}
-    @media(max-width:520px){header{height:64px;padding:0 20px}main{padding:54px 0 70px}h1{letter-spacing:-2.5px}.panel{padding:20px}}
-  </style>
-</head>
-<body>
-  <header><a class="brand" href="/">REVERB<span>.</span></a><a class="back" href="/">← BACK TO STORE</a></header>
-  <main>
-    <p class="eyebrow">REVERB / INTERNAL SPACE</p>
-    <h1>The<br><span>Workshop.</span></h1>
-    <p class="intro">A private workspace for keeping the collection in order. Product management, stock levels and store operations will live here.</p>
-    <section class="panel" aria-live="polite">
-      <div class="mark">R</div>
-      <div><h2>Workspace being prepared</h2><p>Secure owner sign-in has not been connected yet. Inventory figures and management tools will remain unavailable here until access is protected.</p></div>
-    </section>
-  </main>
-  <footer>REVERB CLOTHING · INTERNAL WORKSPACE</footer>
-</body>
-</html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f4f3ef"><title>The Workshop — REVERB</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box} :root{--ink:#171717;--muted:#777;--paper:#f4f3ef;--line:#deddd8;--acid:#d5ff45}body{margin:0;background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif}button,input,select{font:inherit}button{cursor:pointer}
+header{height:70px;padding:0 4vw;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);position:sticky;top:0;background:#f4f3efed;backdrop-filter:blur(15px);z-index:4}.brand{font:700 24px 'Space Grotesk';letter-spacing:-1.5px;color:inherit;text-decoration:none}.brand span{color:#9cbd1e}.header-right{display:flex;align-items:center;gap:18px}.demo{font-size:10px;letter-spacing:1.5px;font-weight:700;background:#e8e7df;padding:8px 10px}.back{font-size:12px;text-decoration:none;color:inherit;font-weight:700}
+main{max-width:1280px;margin:auto;padding:38px 4vw 80px}.topline{display:flex;justify-content:space-between;align-items:flex-end;gap:20px}.eyebrow{font-size:10px;letter-spacing:2px;font-weight:700;color:var(--muted)}h1{font:600 clamp(36px,5vw,54px)/1 'Space Grotesk';letter-spacing:-2.5px;margin:9px 0}.sub{color:var(--muted);font-size:13px;margin:10px 0 0}.primary{border:0;background:var(--ink);color:#fff;padding:13px 18px;font-size:11px;font-weight:700;letter-spacing:.7px}.primary:hover{background:#393939}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:32px 0}.stat{border:1px solid var(--line);padding:20px;background:#eeede8}.stat label{font-size:10px;letter-spacing:1.4px;color:var(--muted);font-weight:700}.stat strong{display:block;font:600 32px 'Space Grotesk';margin-top:8px}.stat small{font-size:11px;color:var(--muted)}
+.section-head{display:flex;align-items:center;justify-content:space-between;margin:34px 0 14px}.section-head h2{font:600 21px 'Space Grotesk';margin:0}.section-head p{font-size:11px;color:var(--muted);margin:5px 0 0}.table-wrap{overflow-x:auto;border:1px solid var(--line);background:#eeede8}table{border-collapse:collapse;width:100%;min-width:760px;text-align:left}th{font-size:9px;letter-spacing:1.3px;color:#777;padding:14px 16px;border-bottom:1px solid var(--line)}td{padding:15px 16px;border-bottom:1px solid var(--line);font-size:12px}tbody tr:last-child td{border-bottom:0}.product{font-weight:700}.subline{display:block;color:var(--muted);font-size:11px;margin-top:4px}.qty{font:600 15px 'Space Grotesk';font-variant-numeric:tabular-nums}.stockbar{width:90px;height:5px;background:#d8d7d0;display:inline-block;vertical-align:middle;margin-left:8px}.stockbar i{height:100%;display:block;background:#777}.status{font-size:9px;letter-spacing:.7px;font-weight:700;padding:6px 8px;background:#e2e1da}.status.low{background:#f1dfbd}.status.out{background:#e8cccc}.size-list{color:#555;white-space:nowrap}
+.note{border:1px dashed #c7c5bb;padding:15px 17px;margin-top:18px;color:#666;font-size:11px;line-height:1.6}.note b{color:#222}
+.modal{display:none;position:fixed;inset:0;background:#0007;z-index:10;align-items:center;justify-content:center;padding:16px}.modal.open{display:flex}.dialog{width:min(480px,100%);background:var(--paper);padding:26px;position:relative}.dialog h2{font:600 25px 'Space Grotesk';margin:0 0 6px}.dialog p{font-size:12px;color:var(--muted);margin:0 0 20px}.close{position:absolute;right:16px;top:12px;border:0;background:none;font-size:25px}.field{display:block;margin:13px 0}.field span{display:block;font-size:10px;font-weight:700;letter-spacing:1px;margin-bottom:7px}.field input,.field select{width:100%;padding:12px;border:1px solid var(--line);background:white}.form-actions{display:flex;gap:10px;margin-top:20px}.secondary{padding:12px 16px;background:transparent;border:1px solid var(--line);font-size:11px;font-weight:700}.toast{font-size:11px;margin-top:12px;color:#52631c;min-height:14px}
+footer{padding:22px 4vw;border-top:1px solid var(--line);font-size:10px;letter-spacing:1px;color:#777}
+@media(max-width:650px){header{height:62px;padding:0 20px}.demo{display:none}main{padding:30px 20px 55px}.topline{align-items:flex-start;flex-direction:column}.topline .primary{width:100%}.stats{gap:8px;margin:24px 0}.stat{padding:13px 10px}.stat strong{font-size:25px}.stat label{font-size:8px;letter-spacing:.7px}.stat small{font-size:9px}.section-head{align-items:flex-start;gap:8px;flex-direction:column}}
+</style></head><body>
+<header><a class="brand" href="/">REVERB<span>.</span></a><div class="header-right"><span class="demo">PREVIEW MODE · SAMPLE DATA</span><a class="back" href="/">← STORE</a></div></header>
+<main>
+ <div class="topline"><div><div class="eyebrow">REVERB / THE WORKSHOP</div><h1>Stock overview.</h1><p class="sub">Manage product quantities across colours and sizes.</p></div><button class="primary" id="openAdd">＋ &nbsp; ADD STOCK</button></div>
+ <section class="stats"><div class="stat"><label>TOTAL UNITS IN STOCK</label><strong id="totalUnits">71</strong><small>Across all products and variations</small></div><div class="stat"><label>PRODUCTS</label><strong id="productCount">4</strong><small>Active products in the collection</small></div><div class="stat"><label>LOW / OUT OF STOCK</label><strong id="attentionCount">1</strong><small>Variations needing attention</small></div></section>
+ <div class="section-head"><div><h2>Inventory</h2><p>Stock is grouped by product and colour.</p></div></div>
+ <div class="table-wrap"><table><thead><tr><th>PRODUCT</th><th>COLOUR</th><th>SIZE BREAKDOWN</th><th>TOTAL QTY</th><th>STATUS</th></tr></thead><tbody id="inventory"></tbody></table></div>
+ <div class="note"><b>Preview only.</b> These are example quantities based on the current sample products. Use “Add stock” to try the workflow; changes stay temporarily in this page and are not saved to a database or the live store. Owner sign-in and permanent inventory storage will be connected later.</div>
+</main>
+<footer>REVERB CLOTHING · THE WORKSHOP · DEMONSTRATION DASHBOARD</footer>
+<div class="modal" id="addModal"><div class="dialog"><button class="close" id="closeModal" aria-label="Close">×</button><h2>Add stock</h2><p>Choose a product variation and enter the quantity received.</p><form id="stockForm">
+<label class="field"><span>PRODUCT</span><select id="productSelect"></select></label>
+<label class="field"><span>COLOUR</span><select id="colourSelect"></select></label>
+<label class="field"><span>SIZE</span><select id="sizeSelect"></select></label>
+<label class="field"><span>QUANTITY TO ADD</span><input id="quantity" type="number" min="1" step="1" placeholder="e.g. 12" required></label>
+<div class="form-actions"><button class="primary" type="submit">ADD QUANTITY</button><button class="secondary" type="button" id="cancelAdd">CANCEL</button></div><div class="toast" id="formMessage"></div>
+</form></div></div>
+<script>
+const stockProducts=[
+{id:1,name:"Reverb Essential Tee",type:"T-shirts",colours:[{name:"Black",hex:"#202020",sizes:{XS:0,S:4,M:8,L:7,XL:3,XXL:1}},{name:"Bone",hex:"#e7e0d2",sizes:{XS:1,S:3,M:6,L:5,XL:2,XXL:0}}]},
+{id:2,name:"Studio Hoodie",type:"Hoodies",colours:[{name:"Charcoal",hex:"#414141",sizes:{XS:0,S:2,M:4,L:4,XL:2,XXL:1}},{name:"Olive",hex:"#69705a",sizes:{XS:1,S:2,M:3,L:2,XL:0,XXL:0}}]},
+{id:3,name:"Utility Cargo",type:"Pants",colours:[{name:"Sand",hex:"#b9a68a",sizes:{XS:0,S:1,M:4,L:3,XL:2,XXL:0}}]},
+{id:4,name:"Everyday Cap",type:"Accessories",colours:[{name:"Black",hex:"#202020",sizes:{XS:0,S:0,M:0,L:0,XL:0,XXL:0}}]}
+];
+const $=s=>document.querySelector(s), sizes=["XS","S","M","L","XL","XXL"];
+const total=c=>Object.values(c.sizes).reduce((a,b)=>a+Number(b),0);
+function render(){
+ const rows=stockProducts.flatMap(p=>p.colours.map(c=>({p,c,qty:total(c)})));
+ $("#inventory").innerHTML=rows.map(({p,c,qty})=>'<tr><td><span class="product">'+p.name+'</span><span class="subline">'+p.type+'</span></td><td>'+c.name+'</td><td class="size-list">'+sizes.map(s=>s+': '+c.sizes[s]).join(' &nbsp;·&nbsp; ')+'</td><td><span class="qty">'+qty+'</span><span class="stockbar"><i style="width:'+Math.min(100,qty/25*100)+'%"></i></span></td><td><span class="status '+(qty===0?'out':qty<5?'low':'')+'">'+(qty===0?'OUT OF STOCK':qty<5?'LOW STOCK':'IN STOCK')+'</span></td></tr>').join('');
+ $("#totalUnits").textContent=rows.reduce((a,r)=>a+r.qty,0);
+ $("#productCount").textContent=stockProducts.length;
+ $("#attentionCount").textContent=rows.filter(r=>r.qty<5).length;
+}
+function fillProducts(){ $("#productSelect").innerHTML=stockProducts.map(p=>'<option value="'+p.id+'">'+p.name+'</option>').join('');fillColours(); }
+function fillColours(){const p=stockProducts.find(p=>p.id===Number($("#productSelect").value));$("#colourSelect").innerHTML=p.colours.map((c,i)=>'<option value="'+i+'">'+c.name+'</option>').join('');fillSizes();}
+function fillSizes(){const p=stockProducts.find(p=>p.id===Number($("#productSelect").value)),c=p.colours[Number($("#colourSelect").value)];$("#sizeSelect").innerHTML=sizes.map(s=>'<option value="'+s+'">'+s+' · Current: '+c.sizes[s]+'</option>').join('');}
+function open(){fillProducts();$("#quantity").value="";$("#formMessage").textContent="";$("#addModal").classList.add("open");}
+function close(){$("#addModal").classList.remove("open");}
+$("#openAdd").addEventListener("click",open);$("#closeModal").addEventListener("click",close);$("#cancelAdd").addEventListener("click",close);
+$("#productSelect").addEventListener("change",fillColours);$("#colourSelect").addEventListener("change",fillSizes);
+$("#stockForm").addEventListener("submit",e=>{e.preventDefault();const p=stockProducts.find(p=>p.id===Number($("#productSelect").value)),c=p.colours[Number($("#colourSelect").value)],s=$("#sizeSelect").value,n=Number($("#quantity").value);if(!Number.isInteger(n)||n<1){$("#formMessage").textContent="Enter a quantity greater than zero.";return;}c.sizes[s]+=n;render();fillSizes();$("#quantity").value="";$("#formMessage").textContent="Stock updated in this preview. It has not been saved.";});
+$("#addModal").addEventListener("click",e=>{if(e.target===$("#addModal"))close();});
+render();
+</script></body></html>
