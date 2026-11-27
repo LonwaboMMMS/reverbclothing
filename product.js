@@ -7,6 +7,17 @@ let products;try{products=JSON.parse(localStorage.getItem("reverbProducts"))||se
 const p=products.find(x=>Number(x.id)===Number(new URLSearchParams(location.search).get("id")));
 let colourIndex=0,size="",galleryIndex=0,cart=[];try{cart=JSON.parse(localStorage.getItem("reverbBag"))||[];}catch(e){cart=[];}
 function saveCart(){localStorage.setItem("reverbBag",JSON.stringify(cart));$("#cartCount").textContent=cart.length;}
+function renderBag(){
+ const panel=$("#bagPanel"),content=$("#bagContent");
+ if(!cart.length){content.innerHTML='<h2>Your bag is empty.</h2><p>Find something you love in the collection.</p>';}
+ else{
+  content.innerHTML='<h2>Your bag</h2>'+cart.map((item,i)=>'<div class="admin-row"><div class="bag-line"><span>'+esc(item.product.name)+' · '+esc(item.colour)+' · '+esc(item.size)+'</span><b>'+money(item.product.price)+'</b></div><button type="button" class="bag-remove" data-remove="'+i+'">Remove</button></div>').join("")+'<h3 class="bag-total">Total '+money(cart.reduce((sum,item)=>sum+Number(item.product.price||0),0))+'</h3><button class="action" id="bagCheckout" type="button">CHECKOUT</button>';
+  content.querySelectorAll("[data-remove]").forEach(button=>button.addEventListener("click",()=>{cart.splice(Number(button.dataset.remove),1);saveCart();renderBag();}));
+  $("#bagCheckout").addEventListener("click",()=>alert("Checkout/payment integration will be added later."));
+ }
+ panel.classList.add("open");panel.setAttribute("aria-hidden","false");
+}
+function closeBag(){const panel=$("#bagPanel");panel.classList.remove("open");panel.setAttribute("aria-hidden","true");}
 function showToast(message){let toast=$("#siteToast");if(!toast){toast=document.createElement("div");toast.id="siteToast";toast.className="site-toast";toast.setAttribute("role","status");toast.setAttribute("aria-live","polite");document.body.appendChild(toast);}toast.textContent=message;toast.classList.remove("visible");void toast.offsetWidth;toast.classList.add("visible");window.clearTimeout(showToast.timer);showToast.timer=window.setTimeout(()=>toast.classList.remove("visible"),2000);}
 function render(){
  if(!p){$("#productRoot").innerHTML="<h1>Product not found</h1><p>This product may have been removed.</p>";return;}
@@ -18,7 +29,7 @@ function render(){
  $("#galleryMain").addEventListener("touchstart",e=>{galleryTouchStart=e.touches[0].clientX;},{passive:true});
  $("#galleryMain").addEventListener("touchend",e=>{if(galleryTouchStart==null||imgs.length<2)return;const dx=e.changedTouches[0].clientX-galleryTouchStart;if(Math.abs(dx)>45)setGallery((galleryIndex+(dx<0?1:imgs.length-1))%imgs.length);galleryTouchStart=null;},{passive:true});
  document.querySelectorAll("[data-colour]").forEach(b=>b.addEventListener("click",()=>{colourIndex=Number(b.dataset.colour);size="";document.querySelectorAll("[data-colour]").forEach(x=>x.classList.toggle("selected",x===b));renderSizes();}));
- $("#cartCount").textContent=cart.length;renderSizes();$("#cartBtn").addEventListener("click",()=>alert(cart.length?cart.length+" item(s) in your bag.":"Your bag is empty."));
+ $("#cartCount").textContent=cart.length;renderSizes();$("#cartBtn").addEventListener("click",renderBag);$("#closeBag").addEventListener("click",closeBag);$("#bagPanel").addEventListener("click",e=>{if(e.target===$("#bagPanel"))closeBag();});
 }
 let galleryTouchStart=null;
 function setGallery(index){const imgs=p.images?.length?p.images:(p.image?[p.image]:[]);if(!imgs.length)return;galleryIndex=index;$("#galleryMain").innerHTML='<img src="'+esc(imgs[index])+'" alt="'+esc(p.name)+'">';$("#galleryThumbs").querySelectorAll("button").forEach((b,i)=>b.classList.toggle("active",i===index));}
