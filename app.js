@@ -65,10 +65,46 @@
   }
   function drawProduct() {
     const p = activeProduct, colour = p.colors[selectedColour];
-    show('<p class="eyebrow">' + escapeHTML(p.type) + '</p><h2>' + escapeHTML(p.name) + '</h2><p>' + escapeHTML(p.description) + '</p><h3>' + money(p.price) + '</h3><p>Colour</p><div class="detail-colors">' + p.colors.map((c,i) => '<button type="button" data-col="' + i + '" class="' + (i===selectedColour ? "selected" : "") + '"><span class="swatch" style="display:inline-block;background:' + escapeHTML(c.hex) + ';vertical-align:middle"></span> ' + escapeHTML(c.name) + '</button>').join("") + '</div><p>Size</p><div class="size-stock">' + Object.keys(colour.sizes).map(s => '<button type="button" data-size="' + s + '" ' + (Number(colour.sizes[s]) < 1 ? "disabled" : "") + ' class="' + (s===selectedSize ? "selected" : "") + '">' + s + (Number(colour.sizes[s]) < 1 ? " · Sold out" : "") + '</button>').join("") + '</div><button class="action" id="addCart" type="button">ADD TO BAG</button>');
+    const selectedStock = selectedSize ? Number(colour.sizes[selectedSize] || 0) : null;
+    const soldOut = selectedSize && selectedStock < 1;
+    show('<p class="eyebrow">' + escapeHTML(p.type) + '</p><h2>' + escapeHTML(p.name) + '</h2><p>' + escapeHTML(p.description) + '</p><h3>' + money(p.price) + '</h3><p>Colour</p><div class="detail-colors">' + p.colors.map((c,i) => '<button type="button" data-col="' + i + '" class="' + (i===selectedColour ? "selected" : "") + '"><span class="swatch" style="display:inline-block;background:' + escapeHTML(c.hex) + ';vertical-align:middle"></span> ' + escapeHTML(c.name) + '</button>').join("") + '</div><p>Size</p><div class="size-stock">' + Object.keys(colour.sizes).map(s => '<button type="button" data-size="' + s + '" class="' + (s===selectedSize ? "selected" : "") + '">' + s + (Number(colour.sizes[s]) < 1 ? " · Sold out" : "") + '</button>').join("") + '</div>' +
+      (soldOut ? '<section class="restock-notify"><h3>Get notified when it is back</h3><p>' + escapeHTML(colour.name) + ' / ' + escapeHTML(selectedSize) + ' is currently sold out. Leave your details and we will notify you when this option is available again.</p><form id="restockForm"><input name="name" type="text" placeholder="Your name" autocomplete="name" required maxlength="100"><input name="contact" type="text" placeholder="Email address or mobile number" autocomplete="email" required maxlength="160"><button class="action" type="submit">NOTIFY ME</button><p id="restockMessage" class="eyebrow" role="status" aria-live="polite"></p></form></section>' : '<button class="action" id="addCart" type="button">ADD TO BAG</button>'));
     $$("[data-col]", modalContent).forEach(button => button.addEventListener("click", () => { selectedColour = Number(button.dataset.col); selectedSize = ""; drawProduct(); }));
     $$("[data-size]", modalContent).forEach(button => button.addEventListener("click", () => { selectedSize = button.dataset.size; drawProduct(); }));
-    $("#addCart").addEventListener("click", () => {
+    const restockForm = $("#restockForm");
+    if (restockForm) {
+      restockForm.addEventListener("submit", async e => {
+        e.preventDefault();
+        const formData = new FormData(restockForm);
+        const message = $("#restockMessage");
+        const submit = restockForm.querySelector('button[type="submit"]');
+        const request = {
+          productId: p.id,
+          productName: p.name,
+          colour: colour.name,
+          size: selectedSize,
+          name: String(formData.get("name") || "").trim(),
+          contact: String(formData.get("contact") || "").trim()
+        };
+        submit.disabled = true;
+        message.textContent = "Submitting your request…";
+        try {
+          const response = await fetch("/api/restock-requests", {
+            method: "POST",
+            headers: {"Content-Type":"application/json"},
+            body: JSON.stringify(request)
+          });
+          if (!response.ok) throw new Error("Request service is not available.");
+          message.textContent = "You're on the list. We'll contact you when this option is back.";
+          restockForm.reset();
+        } catch (_) {
+          message.textContent = "Restock notifications are not active yet. Your details have not been saved. Please try again later.";
+          submit.disabled = false;
+        }
+      });
+    }
+    const addCart = $("#addCart");
+    if (addCart) addCart.addEventListener("click", () => {
       if (!selectedSize) { alert("Please select a size."); return; }
       cart.push({product:p, colour:colour.name, size:selectedSize});
       $("#cartCount").textContent = cart.length;
